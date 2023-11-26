@@ -1,26 +1,26 @@
+import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import pytest
 
-options = Options()
-options.add_experimental_option("--language=ru")
-browser = webdriver.Chrome(options=options)
 
 def pytest_addoption(parser):
-    parser.addoption('--language', action='store', default="ES",
-                     help="Choose language: RU or ES")
+    parser.addoption('--language', action='store', default="ru", help="Choose language: ru or es")
+
 
 @pytest.fixture(scope="function")
 def browser(request):
-    language_name = request.config.getoption("language_name")
-    browser = None
-    if language_name == "ES":
+    language = request.config.getoption("language")
+    options = Options()
+    if language == "es":
         print("\nstarting browser on ES language")
-        browser = webdriver.Chrome()
-    elif language_name == "RU":
+        options.add_experimental_option('prefs', {'intl.accept_languages': 'es'})
+    elif language == "RU":
         print("\nstarting browser on RU language")
-        browser = webdriver.Chrome()
+        options.add_experimental_option('prefs', {'intl.accept_languages': 'ru'})
     else:
         raise pytest.UsageError("--browser_language should be RU or ES")
+    browser = webdriver.Chrome(options=options)
     yield browser
     print("\nquit browser..")
     browser.quit()
