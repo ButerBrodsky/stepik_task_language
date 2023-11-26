@@ -9,4 +9,4 @@ def test_exercise(browser):
     browser.get(link)
     button_submit = browser.find_element(By.CSS_SELECTOR, 'button.btn.btn-lg.btn-primary.btn-add-to-basket').text
     assert "Добавить в корзину" == button_submit, ("Кнопки добавления в корзину нет!")
-    time.sleep(3) ###этот слип можно убрать, мне был нужен, вдруг тебе понадобится для удобства!
+    time.sleep(3) ###этот слип можно убрать, мне был нужен, вдруг тебе понадобится для удобства
