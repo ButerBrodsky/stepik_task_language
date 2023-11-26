@@ -10,7 +10,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="function")
 def browser(request):
-    language = request.config.getoption("language")
+    language = request.config.getoption("--language")
     options = Options()
     if language == "es":
         print("\nstarting browser on ES language")
